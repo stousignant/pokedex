@@ -4,4 +4,5 @@
 /package-lock.json
 
 # Logs
-.log*
+*.log
+repl.log

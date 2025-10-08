@@ -15,7 +15,7 @@ export function cleanInput(input: string): string[] {
 export function startREPL() {
     const state: State = initState();
     state.rl.prompt();
-    state.rl.on("line", (input) => {
+    state.rl.on("line", async (input) => {
         if (input === "") {
             state.rl.prompt();
             return;
@@ -26,7 +26,7 @@ export function startREPL() {
         const command = state.commands[firstWord];
         if (command) {
             try {
-                command.callback(state);
+                await command.callback(state);
             } catch (error) {
                 console.log(`error = ${error}`);
             }            
