@@ -12,6 +12,6 @@ export async function commandExplore(state: State, location: string): Promise<vo
     }
 
     for (const pokemonEncounter of locationAreaData.pokemon_encounters) {
-        console.log(` - ${pokemonEncounter.pokemon.name}`);
+        console.log(` - ${pokemonEncounter.pokemonUrl.name}`);
     }
 }

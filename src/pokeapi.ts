@@ -4,6 +4,7 @@ export class PokeAPI {
     private static readonly baseURL = "https://pokeapi.co/api/v2";
     private static readonly locationAreaShallowURL = (offset: number = 0, limit: number = 20): string => `/location-area/?offset=${offset}&limit=${limit}`;
     private static readonly locationAreaURL = (location: string | number): string => `/location-area/${location}`;
+    private static readonly pokemonURL = (pokemon: string | number):string => `/pokemon/${pokemon}`;
     private readonly cacheInterval = 30000;
 
     #pokeCache: Cache;
@@ -22,6 +23,11 @@ export class PokeAPI {
         return this.#getData<LocationArea>(url); 
     }
 
+    async fetchPokemon(pokemon: string | number): Promise<Pokemon> {
+        const url = PokeAPI.baseURL + PokeAPI.pokemonURL(pokemon);
+        return this.#getData<Pokemon>(url); 
+    }
+
     async #getData<T>(url: string): Promise<T> {
         const cacheData = this.#getCacheData<T>(url);
         if (cacheData !== undefined) {
@@ -33,7 +39,7 @@ export class PokeAPI {
             return jsonData;
         }
     }
-    
+
     #getCacheData<T>(key: string): T | undefined {
         const cacheData = this.#pokeCache.get<T>(key);
         if (cacheData !== undefined) {
@@ -63,10 +69,16 @@ export type LocationArea = {
 };
 
 export type PokemonEncounter = {
-    pokemon: Pokemon,
+    pokemonUrl: PokemonUrl,
 };
+
+export type PokemonUrl = {
+    name: string,
+    url: string,
+}
 
 export type Pokemon = {
     name: string,
-    url: string,
+    id: number,
+    base_experience: number,
 }
