@@ -1,0 +1,38 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug TS (ts-node, WSL)",
+            "skipFiles": ["<node_internals>/**"],
+            "program": "${workspaceFolder}/node_modules/ts-node/register/transpile-only",
+            "args": ["${workspaceFolder}/src/main.ts"],
+            "cwd": "${workspaceFolder}",
+            "outFiles": ["${workspaceFolder}/dist/**/*.js"]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug Vitest (npm run test)",
+            "cwd": "${workspaceFolder}",
+            
+            // 1. Program: Points directly to the Vitest executable (vitest.mjs)
+            "program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+            
+            // 2. Arguments: Passes the "--run" flag (from your package.json)
+            //    and the necessary flags for Node to enable debugging.
+            "args": [
+                "--run", // The command run by your "test" script in package.json
+                "--inspect-brk" 
+            ],
+            
+            // 3. Environment/Settings: Required to stop execution until the debugger attaches.
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+        }
+    ]
+}
