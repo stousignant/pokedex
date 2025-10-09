@@ -1,4 +1,4 @@
-import { State } from "./state";
+import { State } from "../state";
 
 // todo :: unsure if can be not async?
 export async function commandExit(state: State): Promise<void> {

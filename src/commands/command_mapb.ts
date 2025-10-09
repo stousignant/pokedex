@@ -1,4 +1,4 @@
-import { State } from "./state";
+import { State } from "../state";
 
 export async function commandMapb(state: State): Promise<void> {
     const locationsData = await state.pokeapi.fetchLocations(state.prevLocationsURL);

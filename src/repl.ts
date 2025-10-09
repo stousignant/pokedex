@@ -21,12 +21,15 @@ export function startREPL() {
             return;
         }
         
-        const cleanWords = cleanInput(input);
-        const firstWord = cleanWords[0];
-        const command = state.commands[firstWord];
+        const cleanInputWords = cleanInput(input);
+        const command = state.commands[cleanInputWords[0]];
         if (command) {
             try {
-                await command.callback(state);
+                if (cleanInputWords.length == 2) {
+                    await command.callback(state, cleanInputWords[1]);
+                } else {
+                    await command.callback(state);
+                }                
             } catch (error) {
                 console.log(`error = ${error}`);
             }            

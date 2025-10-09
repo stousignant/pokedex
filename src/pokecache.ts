@@ -19,7 +19,6 @@ export class Cache {
             val: val,
         }
         this.#cache.set(key, cacheEntry);
-        console.log(`added to cache ${key} / ${cacheEntry.val}`);
     }
 
     get<T>(key: string): T | undefined {
@@ -46,7 +45,6 @@ export class Cache {
         }
         for (const key of keysToDelete) {
             this.#cache.delete(key);
-            console.log(`deleting key ${key}`);
         }
     }
 
